@@ -15,3 +15,11 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+
+button {
+	background-color: lightskyblue;
+}
+
+input {
+	background-color: lightgray;
+}

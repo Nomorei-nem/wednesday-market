@@ -10,7 +10,51 @@ export default function App() {
 }
 
 function Form() {
-	const image = list[35].image;
+	const [searchTerm, setSearchTerm] = useState('');
+	const [curItem, setCurItem] = useState('');
 
-	return <img src={image} alt="fruit" />;
+	function handleSearch(e) {
+		setSearchTerm(e.target.value.toLowerCase());
+	}
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		setCurItem(
+			...list.filter(
+				(item) =>
+					item?.name.toLowerCase() === searchTerm ||
+					item?.alsoKnownAs.includes(searchTerm)
+			)
+		);
+
+		e.target.reset();
+	}
+
+	return (
+		<>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="search-bar">Product:</label>
+				<input
+					type="search"
+					id="search-bar"
+					onChange={(e) => handleSearch(e)}
+				/>
+				<button type="submit">Submit</button>
+			</form>
+			{curItem && (
+				<div className="aspect-square h-80">
+					<img src={curItem.image} alt={curItem.name} />
+					<span>
+						Kannada: {curItem.kannadaName} (
+						{curItem.kannadaTransliteration.toLowerCase()})
+					</span>
+					<br />
+					<span>
+						Hindi: {curItem.hindiName} (
+						{curItem.hindiTransliteration.toLowerCase()})
+					</span>
+				</div>
+			)}
+		</>
+	);
 }
